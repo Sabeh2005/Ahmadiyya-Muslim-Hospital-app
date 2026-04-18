@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { property, customElement, state } from 'lit/decorators.js';
-import { resolveRouterPath } from '../router';
+import { resolveRouterPath, router } from '../router';
 
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/icon/icon.js';
@@ -15,6 +15,7 @@ export class AppHeader extends LitElement {
   @property({ type: String }) title = 'Ahmadiyya Muslim Hospital Mbale';
   @property({ type: Boolean }) enableBack: boolean = false;
   @state() private isDrawerOpen = false;
+  @state() private currentPath = window.location.pathname;
 
   static styles = css`
     header {
@@ -224,6 +225,33 @@ export class AppHeader extends LitElement {
     this.isDrawerOpen = false;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    router.addEventListener('route-changed', this.handleRouteChange);
+  }
+
+  disconnectedCallback() {
+    router.removeEventListener('route-changed', this.handleRouteChange);
+    super.disconnectedCallback();
+  }
+
+  private handleRouteChange = () => {
+    this.currentPath = window.location.pathname;
+  };
+
+  private normalizePath(path: string): string {
+    if (path.length > 1 && path.endsWith('/')) {
+      return path.slice(0, -1);
+    }
+    return path;
+  }
+
+  private isActive(path?: string): boolean {
+    const targetPath = this.normalizePath(resolveRouterPath(path));
+    const activePath = this.normalizePath(this.currentPath);
+    return targetPath === activePath;
+  }
+
   render() {
     return html`
       <header>
@@ -242,11 +270,23 @@ export class AppHeader extends LitElement {
 
         <div class="header-right">
           <nav>
-            <a href="${resolveRouterPath()}" class="active">Home</a>
-            <a href="${resolveRouterPath('departments')}">Departments</a>
-            <a href="${resolveRouterPath('doctors')}">Doctors</a>
-            <a href="${resolveRouterPath('services')}">Services</a>
-            <a href="${resolveRouterPath('contact')}">Contact</a>
+            <a href="${resolveRouterPath()}" class="${this.isActive() ? 'active' : ''}">Home</a>
+            <a
+              href="${resolveRouterPath('departments')}"
+              class="${this.isActive('departments') ? 'active' : ''}"
+              >Departments</a
+            >
+            <a href="${resolveRouterPath('doctors')}" class="${this.isActive('doctors') ? 'active' : ''}"
+              >Doctors</a
+            >
+            <a
+              href="${resolveRouterPath('services')}"
+              class="${this.isActive('services') ? 'active' : ''}"
+              >Services</a
+            >
+            <a href="${resolveRouterPath('contact')}" class="${this.isActive('contact') ? 'active' : ''}"
+              >Contact</a
+            >
           </nav>
           <a href="${resolveRouterPath('emergency')}" class="emergency-btn">
             <sl-icon name="telephone-fill" library="default"></sl-icon>
@@ -263,28 +303,60 @@ export class AppHeader extends LitElement {
       >
         <div class="drawer-content">
           <div class="drawer-nav">
-            <a href="${resolveRouterPath()}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath()}"
+              class="${this.isActive() ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               🏠 Home
             </a>
-            <a href="${resolveRouterPath('departments')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('departments')}"
+              class="${this.isActive('departments') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               🏢 Departments
             </a>
-            <a href="${resolveRouterPath('doctors')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('doctors')}"
+              class="${this.isActive('doctors') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               👨‍⚕️ Doctors
             </a>
-            <a href="${resolveRouterPath('appointment')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('appointment')}"
+              class="${this.isActive('appointment') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               📅 Book Appointment
             </a>
-            <a href="${resolveRouterPath('services')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('services')}"
+              class="${this.isActive('services') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               ⚕️ Services
             </a>
-            <a href="${resolveRouterPath('emergency')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('emergency')}"
+              class="${this.isActive('emergency') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               🚨 Emergency
             </a>
-            <a href="${resolveRouterPath('about')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('about')}"
+              class="${this.isActive('about') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               ℹ️ About Us
             </a>
-            <a href="${resolveRouterPath('contact')}" @click="${this.closeDrawer}">
+            <a
+              href="${resolveRouterPath('contact')}"
+              class="${this.isActive('contact') ? 'active' : ''}"
+              @click="${this.closeDrawer}"
+            >
               📞 Contact
             </a>
           </div>
