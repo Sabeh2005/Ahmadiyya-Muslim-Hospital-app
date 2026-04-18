@@ -1,35 +1,43 @@
-# PWA Starter
+# Ahmadiyya Muslim Hospital Mbale PWA
 
-[**Straight to Full Documentation**](https://docs.pwabuilder.com/#/starter/quick-start)
+This project is a Progressive Web App (PWA) for **Ahmadiyya Muslim Hospital Mbale**.
+It provides patients and visitors with quick access to hospital information and key services from any modern browser or installed app experience.
 
-The PWABuilder pwa-starter is our opinionated, best practices, production tested starter that we use to build all of our PWAs, including [PWABuilder itself](https://blog.pwabuilder.com/posts/introducing-the-brand-new-pwa-builder/)! The pwa-starter is a starter codebase, just like create-react-app or the Angular CLI can generate, that uses the PWABuilder team&#39;s preferred front-end tech stack. We also have a CLI tool to allow you to create a PWA template from the command line.
+The app is built with **Lit + Vite** and follows a route-based structure for hospital pages such as:
 
-## Jump Right In
+- Home
+- Departments
+- Doctors
+- Appointment booking
+- Emergency services
+- Medical services
+- Contact
+- About
 
-Install the PWABuilder CLI:
+## Run From Source Code
 
-`npm i -g @pwabuilder/cli`
+Use the following commands from the project root:
 
-And create a new app with this command:
+- Install dependencies: `npm install`
+- Start local development server: `npm run dev`
+- Build for production: `npm run build`
+- Preview production build locally: `npm run preview`
 
-`pwa create`
+## Features
 
-And start your app locally with:
+- Responsive, mobile-friendly hospital web experience
+- PWA install support with service worker caching
+- In-app navigation between hospital information pages
+- Dedicated emergency and appointment pages for faster patient access
+- Built-in support for light and dark mode themes
 
-`pwa start`
+## Tech Stack
 
-And that's it! Good luck on your Progressive Web App adventure!
+- [Lit](https://lit.dev/) for Web Components
+- [Vite](https://vitejs.dev/) for development and bundling
+- [Shoelace](https://shoelace.style/) for UI components
+- [Workbox](https://developer.chrome.com/docs/workbox/) for service worker tooling
 
-## More Info
+## Project Purpose
 
-[![Get started with the pwa-starter!](https://img.youtube.com/vi/u3pWKpmic_k/0.jpg)](https://www.youtube.com/watch?v=u3pWKpmic_k)
-
-With it you get an app that:
-- Has no build system to set up and no boilerplate code to add. Everything is included out of the box.
-- Has a Service Worker system using [Workbox](https://developers.google.com/web/tools/workbox/)
-- Scores close to 100 on Lighthouse out of the box
-- Has everything needed to be installable in the browser
-- Is ready to be package for the app stores using [PWABuilder](https://www.pwabuilder.com)
-- Uses the [Azure Static Web Apps CLI](https://azure.github.io/static-web-apps-cli) which enables emulating your production environment locally, and gets you ready for deploying to Azure Static Web Apps!
-
-and all with just a few button clicks 😊.
+The goal of this app is to present hospital services and contact points in a simple, accessible interface that works well on both desktop and mobile devices, including installable app usage for repeat visitors.
